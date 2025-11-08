@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 
-import { useDynamicClasses } from "./useDynamicClasses";
+import useDynamicClasses from "./useDynamicClasses";
 
 function Example() {
   const [isPrimary, setIsPrimary] = useState(true);
