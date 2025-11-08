@@ -77,3 +77,10 @@ pnpm publish --access public
 ```
 
 خروجی `dist` شامل باندل‌های CommonJS و ESModule به‌همراه تعریف‌های TypeScript است.
+
+## استقرار Storybook روی GitHub Pages
+
+- workflow آماده‌ای در مسیر `.github/workflows/deploy-storybook.yml` قرار دارد که با هر Push روی شاخه `main` یا به‌صورت دستی (Workflow Dispatch) Storybook را روی شاخه `gh-pages` منتشر می‌کند.
+- برای اولین بار، در صفحه تنظیمات ریپو (Settings → Pages) منبع را روی `gh-pages` و مسیر `/(root)` بگذارید.
+- پس از فعال‌سازی، مستندات Storybook در آدرس `https://<github-username>.github.io/react-pocket-tools/` در دسترس خواهد بود.
+- در صورت نیاز می‌توانید Workflow را ویرایش کنید تا روی شاخه یا مسیر متفاوتی منتشر شود.
