@@ -10,6 +10,7 @@ function Example() {
   const [value, setValue] = useState("سلام دنیا");
   const [storageType, setStorageType] = useState<StorageChoice>("session");
   const [lastRead, setLastRead] = useState<string | null>(null);
+  const [snapshotVersion, bumpSnapshotVersion] = useState(0);
 
   const { getItem, setItem, removeItem, clearStorage } = useStorage();
 
@@ -21,13 +22,13 @@ function Example() {
 
     for (let i = 0; i < window.sessionStorage.length; i += 1) {
       const storageKey = window.sessionStorage.key(i);
-      if (!storageKey) continue;
+      if (!storageKey || storageKey !== key) continue;
       sessionEntries.push([storageKey, window.sessionStorage.getItem(storageKey) ?? ""]);
     }
 
     for (let i = 0; i < window.localStorage.length; i += 1) {
       const storageKey = window.localStorage.key(i);
-      if (!storageKey) continue;
+      if (!storageKey || storageKey !== key) continue;
       localEntries.push([storageKey, window.localStorage.getItem(storageKey) ?? ""]);
     }
 
@@ -35,25 +36,29 @@ function Example() {
       session: sessionEntries,
       local: localEntries,
     };
-  }, [lastRead, key, value]);
+  }, [key, snapshotVersion]);
 
   const handleSave = useCallback(() => {
     setItem(key, value, storageType);
     setLastRead(getItem(key, storageType));
+    bumpSnapshotVersion((current) => current + 1);
   }, [getItem, key, setItem, storageType, value]);
 
   const handleLoad = useCallback(() => {
     setLastRead(getItem(key, storageType));
+    bumpSnapshotVersion((current) => current + 1);
   }, [getItem, key, storageType]);
 
   const handleRemove = useCallback(() => {
     removeItem(key, storageType);
     setLastRead(null);
+    bumpSnapshotVersion((current) => current + 1);
   }, [key, removeItem, storageType]);
 
   const handleClearAll = useCallback(() => {
     clearStorage();
     setLastRead(null);
+    bumpSnapshotVersion((current) => current + 1);
   }, [clearStorage]);
 
   const storageLabel = storageType === "session" ? "sessionStorage" : "localStorage";
@@ -129,8 +134,8 @@ function Example() {
 
       <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
         <h3 className="text-sm font-semibold text-slate-900">آخرین مقدار خوانده شده</h3>
-        <code className="mt-2 block rounded bg-slate-900 p-2 text-xs text-slate-100">
-          {lastRead ?? "چیزی پیدا نشد"}
+        <code className="mt-2 block min-h-[2rem] rounded bg-slate-900 p-2 text-xs text-slate-100">
+          {lastRead ?? ""}
         </code>
       </div>
 
