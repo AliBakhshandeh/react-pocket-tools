@@ -4,7 +4,6 @@
 
 ## ویژگی‌ها
 
-- مجموعه‌ای از هوک‌های کاربردی مثل `useStorage`, `usePrevious`, `useDynamicClasses`
 - پشتیبانی از TypeScript و خروجی‌های `cjs`, `esm`, `d.ts`
 - Storybook آماده برای مستندسازی و نمایش Playground
 - پیکربندی Vitest و Testing Library برای نوشتن تست‌های واحد
