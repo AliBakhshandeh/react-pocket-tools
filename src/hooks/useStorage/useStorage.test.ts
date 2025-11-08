@@ -1,0 +1,46 @@
+import { renderHook } from "@testing-library/react";
+
+import useStorage from "./useStorage";
+
+describe("useStorage", () => {
+  beforeEach(() => {
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+  });
+
+  it("داده‌ها را در sessionStorage ذخیره و بازیابی می‌کند", () => {
+    const { result } = renderHook(() => useStorage());
+
+    expect(result.current.setItem("token", "123")).toBe(true);
+    expect(window.sessionStorage.getItem("token")).toBe("123");
+    expect(result.current.getItem("token")).toBe("123");
+  });
+
+  it("ذخیره‌سازی در localStorage را با نوع مشخص‌شده مدیریت می‌کند", () => {
+    const { result } = renderHook(() => useStorage());
+
+    expect(result.current.setItem("theme", "dark", "local")).toBe(true);
+    expect(window.localStorage.getItem("theme")).toBe("dark");
+    expect(result.current.getItem("theme", "local")).toBe("dark");
+  });
+
+  it("آیتم‌ها را حذف می‌کند", () => {
+    window.sessionStorage.setItem("removeMe", "1");
+    const { result } = renderHook(() => useStorage());
+
+    result.current.removeItem("removeMe");
+
+    expect(window.sessionStorage.getItem("removeMe")).toBeNull();
+  });
+
+  it("هر دو storage را پاک می‌کند", () => {
+    window.sessionStorage.setItem("sessionKey", "s");
+    window.localStorage.setItem("localKey", "l");
+    const { result } = renderHook(() => useStorage());
+
+    result.current.clearStorage();
+
+    expect(window.sessionStorage.getItem("sessionKey")).toBeNull();
+    expect(window.localStorage.getItem("localKey")).toBeNull();
+  });
+});

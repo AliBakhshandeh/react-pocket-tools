@@ -1,0 +1,79 @@
+{
+  "name": "react-pocket-tools",
+  "version": "0.1.0",
+  "description": "مجموعه‌ای از هوک‌ها و ابزارهای کمکی React برای ساخت سریع‌تر رابط‌های کاربری با مستندات Storybook.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AliBakhshandeh/react-pocket-tools.git"
+  },
+  "author": "Ali bagherzadeh Ardestani",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "hooks",
+    "utilities",
+    "storybook",
+    "typescript",
+    "frontend-toolkit"
+  ],
+  "sideEffects": false,
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build:watch": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "storybook": "storybook dev",
+    "build:storybook": "storybook build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^2.5.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.1.0",
+    "@storybook/addon-interactions": "^8.1.0",
+    "@storybook/addon-links": "^8.1.0",
+    "@storybook/blocks": "^8.1.0",
+    "@storybook/react": "^8.1.0",
+    "@storybook/react-vite": "^8.1.0",
+    "@storybook/test": "^8.1.0",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.5.6",
+    "prettier": "^3.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "^8.1.0",
+    "tailwindcss": "3.4.13",
+    "tsup": "^8.0.1",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "^8.12.1",
+    "vite": "^5.2.0",
+    "vitest": "^1.6.0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

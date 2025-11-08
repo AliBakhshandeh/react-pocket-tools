@@ -1,0 +1,11 @@
+node_modules/
+.pnpm-store/
+dist/
+storybook-static/
+coverage/
+*.log
+.DS_Store
+/pnpm-lock.yaml
+/package-lock.json
+/yarn.lock
+
