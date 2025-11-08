@@ -31,7 +31,7 @@ function serializeClasses(inputs: ClassValue[]): string {
   return twMerge(tokens.join(" ").trim());
 }
 
-export function useDynamicClasses<T extends string = string>(
+export default function useDynamicClasses<T extends string = string>(
   ...args: ClassValue[]
 ): UseDynamicClassesReturn<T> {
   const className = useMemo(() => serializeClasses(args), [args]) as T;
