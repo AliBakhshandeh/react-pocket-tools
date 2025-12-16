@@ -1,11 +1,37 @@
 import { renderHook } from "@testing-library/react";
+import { beforeEach, vi } from "vitest";
 
 import useStorage from "./useStorage";
 
 describe("useStorage", () => {
   beforeEach(() => {
-    window.sessionStorage.clear();
-    window.localStorage.clear();
+    // Create storage-like objects that actually store values
+    const createStorage = () => {
+      const store: Record<string, string> = {};
+      return {
+        getItem: (key: string) => store[key] || null,
+        setItem: (key: string, value: string) => {
+          store[key] = value;
+        },
+        removeItem: (key: string) => {
+          delete store[key];
+        },
+        clear: () => {
+          Object.keys(store).forEach((key) => delete store[key]);
+        },
+      };
+    };
+    
+    Object.defineProperty(window, "localStorage", {
+      value: createStorage(),
+      writable: true,
+      configurable: true,
+    });
+    Object.defineProperty(window, "sessionStorage", {
+      value: createStorage(),
+      writable: true,
+      configurable: true,
+    });
   });
 
   it("داده‌ها را در sessionStorage ذخیره و بازیابی می‌کند", () => {

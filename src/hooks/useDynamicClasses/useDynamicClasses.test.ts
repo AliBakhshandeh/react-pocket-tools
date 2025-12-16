@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
 
-import { useDynamicClasses } from "./useDynamicClasses";
+import useDynamicClasses from "./useDynamicClasses";
 
 const sorted = (value: string) => value.split(/\s+/).filter(Boolean).sort();
 
@@ -35,13 +35,18 @@ describe("useDynamicClasses", () => {
       useDynamicClasses("text-sm", { underline: true }),
     );
 
+    // Each toggle call works on the original className, not previous toggle results
     const removed = result.current.toggle("underline", false);
     const added = result.current.toggle("font-bold", true);
     const toggled = result.current.toggle("italic");
+    const removedItalic = result.current.toggle("underline", false);
 
     expect(sorted(removed)).toEqual(sorted("text-sm"));
     expect(sorted(added)).toEqual(sorted("text-sm underline font-bold"));
-    expect(sorted(toggled)).toEqual(sorted("text-sm"));
+    // toggle("italic") adds italic since it's not in the original className
+    expect(sorted(toggled)).toEqual(sorted("text-sm underline italic"));
+    // toggle("underline", false) removes underline from original className
+    expect(sorted(removedItalic)).toEqual(sorted("text-sm"));
   });
 
   it("هنگام تغییر آرگومان‌ها کلاس نهایی را به‌روزرسانی می‌کند", () => {

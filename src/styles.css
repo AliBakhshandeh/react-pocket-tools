@@ -1,17 +1,26 @@
+/**
+ * Global styles for the library
+ * Includes Tailwind CSS directives and base styles
+ */
+
+/* Tailwind CSS directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root CSS variables and base styles */
 :root {
   color-scheme: light;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* Storybook main container styles */
 .sb-show-main {
   padding: 24px;
   background-color: #f8fafc;
 }
 
+/* UI component base styles */
 .ui-button {
   font-family: inherit;
 }
